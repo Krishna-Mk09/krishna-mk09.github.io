@@ -616,6 +616,23 @@ section {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+.role-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.role-header h3 {
+    margin: 0;
+}
+
+.role-header h4 {
+    margin: 0;
+    font-weight: 500;
+    color: #fffa`;
+}
+
+
 .cert-icon {
     font-size: 2rem;
     color: #fbbf24;

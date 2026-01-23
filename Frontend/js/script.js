@@ -179,37 +179,48 @@ document.addEventListener('DOMContentLoaded', () => {
     initTilt();
 });
 
-
 document.getElementById("contactForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const form = e.target;
 
     const payload = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        message: form.message.value.trim()
+        senderEmail: form.email.value.trim(),
+        userName: form.name.value.trim()
     };
+
+    if (!payload.senderEmail || !payload.userName) {
+        alert("Invalid input ❌");
+        return;
+    }
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 59000); // 59 sec
 
     try {
         const res = await fetch(
             "https://back-end-vvhk.onrender.com/emailService/send-email",
             {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+                signal: controller.signal
             }
         );
 
-        if (!res.ok) throw new Error("Failed");
+        clearTimeout(timeoutId);
+
+        if (!res.ok) throw new Error("API_FAILED");
 
         alert("Email sent successfully ✅");
         form.reset();
 
     } catch (err) {
-        alert("Failed to send email ❌");
+        if (err.name === "AbortError") {
+            alert("Request timed out (59s). Please try again ❌");
+        } else {
+            alert("Failed to send email ❌");
+        }
         console.error(err);
     }
 });
