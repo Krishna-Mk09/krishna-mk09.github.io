@@ -11,6 +11,11 @@
     --nav-bg: rgba(15, 23, 42, 0.8);
 }
 
+.deploy-text {
+  margin-left: 190px;
+color: #6b7280;
+}
+
 * {
     margin: 0;
     padding: 0;
