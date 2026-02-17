@@ -175,7 +175,7 @@ document.getElementById("contactForm").addEventListener("submit", async function
         return;
     }
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 150000); // 59 sec
+    const timeoutId = setTimeout(() => controller.abort(), 250000); // 59 sec
     try {
         const res = await fetch(
             "https://back-end-vvhk.onrender.com/emailService/send-email",
